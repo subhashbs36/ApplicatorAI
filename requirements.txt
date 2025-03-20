@@ -1,0 +1,5 @@
+groq
+gradio
+fpdf
+PyPDF2
+docx2txt

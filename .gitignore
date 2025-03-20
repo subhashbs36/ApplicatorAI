@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Custom Folders
+cover_letters/
+resumes/
+
 # Distribution / packaging
 .Python
 build/
