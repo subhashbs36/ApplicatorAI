@@ -9,6 +9,11 @@ __pycache__/
 # Custom Folders
 cover_letters/
 resumes/
+cache/
+.gradio/
+cold_mails/
+linkedin_dms/
+qna_responses/
 
 # Distribution / packaging
 .Python

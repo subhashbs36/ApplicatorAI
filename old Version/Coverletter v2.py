@@ -460,7 +460,7 @@ class CoverLetterApp:
     
     def refresh_resume_list(self):
         """Refresh the list of available resumes"""
-        return gr.Dropdown.update(
+        return gr.update(
             choices=[file_info[0] for file_info in self.resume_processor.list_resumes()],
             value=None
         )
