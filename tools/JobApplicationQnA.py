@@ -162,3 +162,22 @@ class JobApplicationQnA:
         except Exception as e:
             print(f"Error saving Q&A responses: {e}")
             return None
+    
+    def save_custom_qna(self, custom_content, company_name, position_name):
+        """Save custom Q&A content to a file"""
+        # Clean file names for safety
+        clean_company = re.sub(r'[^\w\s-]', '', company_name).strip().replace(' ', '_')
+        clean_position = re.sub(r'[^\w\s-]', '', position_name).strip().replace(' ', '_')
+        timestamp = time.strftime("%Y%m%d%H%M%S")
+        file_name = f"QnA_{clean_company}_{clean_position}_{timestamp}.txt"
+        
+        os.makedirs("qna_responses", exist_ok=True)
+        file_path = os.path.join("qna_responses", file_name)
+        
+        try:
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(custom_content)
+            return file_path
+        except Exception as e:
+            print(f"Error saving custom Q&A: {e}")
+            return None

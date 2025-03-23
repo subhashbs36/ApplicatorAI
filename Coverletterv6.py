@@ -196,13 +196,13 @@ class CoverLetterApp:
             return file_path
         return None
     
-    def download_file(self, company_name, position_name):
+    def download_file(self, company_name, position_name, current_cover_letter):
         """Function to return file for downloading (only triggered when Download PDF button is pressed)"""
-        if not self.temp_cover_letter:
+        if not current_cover_letter:
             return None
         
-        # Save the temporary cover letter to a PDF upon download request
-        file_path = self.save_cover_letter(self.temp_cover_letter, company_name, position_name)
+        # Save the current (possibly edited) cover letter to a PDF upon download request
+        file_path = self.save_cover_letter(current_cover_letter, company_name, position_name)
         
         if os.path.exists(file_path):
             return file_path
@@ -335,7 +335,8 @@ class CoverLetterApp:
                                     label="Your Cover Letter", 
                                     lines=20,
                                     show_copy_button=True,
-                                    info="Your customized cover letter will appear here"
+                                    info="Your customized cover letter will appear here. Feel free to edit before downloading.",
+                                    interactive=True  # Make the textbox editable
                                 )
                                 download_btn = gr.Button("Download PDF", variant="secondary")
                                 download_output = gr.File()
@@ -365,7 +366,8 @@ class CoverLetterApp:
                                         label="Your Answer", 
                                         lines=10,
                                         show_copy_button=True,
-                                        info="Your personalized answer will appear here"
+                                        info="Your personalized answer will appear here. Feel free to edit before saving.",
+                                        interactive=True  # Make the textbox editable
                                     )
                                 
                                 with gr.Tab("Batch Questions"):
@@ -390,7 +392,8 @@ class CoverLetterApp:
                                         label="Generated Answers", 
                                         lines=15,
                                         show_copy_button=True,
-                                        info="All your personalized answers will appear here"
+                                        info="All your personalized answers will appear here. Feel free to edit before downloading.",
+                                        interactive=True  # Make the textbox editable
                                     )
                                     
                                     batch_download_btn = gr.Button("Download Batch Answers", variant="secondary")
@@ -427,7 +430,8 @@ class CoverLetterApp:
                                         label="Your Cold Email", 
                                         lines=12,
                                         show_copy_button=True,
-                                        info="Your personalized cold email will appear here"
+                                        info="Your personalized cold email will appear here. Feel free to edit before downloading.",
+                                        interactive=True  # Make the textbox editable
                                     )
                                     
                                     download_cold_mail_btn = gr.Button("Download Cold Email", variant="secondary")
@@ -446,7 +450,8 @@ class CoverLetterApp:
                                         label="Your LinkedIn Message", 
                                         lines=8,
                                         show_copy_button=True,
-                                        info="Your personalized LinkedIn message will appear here"
+                                        info="Your personalized LinkedIn message will appear here. Feel free to edit before downloading.",
+                                        interactive=True  # Make the textbox editable
                                     )
                                     
                                     download_linkedin_dm_btn = gr.Button("Download LinkedIn Message", variant="secondary")
@@ -466,7 +471,8 @@ class CoverLetterApp:
                                         label="Your Referral Request", 
                                         lines=8,
                                         show_copy_button=True,
-                                        info="Your personalized referral request message will appear here"
+                                        info="Your personalized referral request message will appear here. Feel free to edit before downloading.",
+                                        interactive=True  # Make the textbox editable
                                     )
                                     
                                     download_referral_btn = gr.Button("Download Referral Message", variant="secondary")
@@ -486,9 +492,10 @@ class CoverLetterApp:
                     outputs=[cover_letter_output, download_output]
                 )
                 
+                # Update event handlers to pass current content
                 download_btn.click(
                     fn=self.download_file,
-                    inputs=[company_name, position_name],
+                    inputs=[company_name, position_name, cover_letter_output],
                     outputs=download_output
                 )
                 
@@ -525,7 +532,7 @@ class CoverLetterApp:
                 
                 download_qa_btn.click(
                     fn=self.download_qna_file,
-                    inputs=[company_name, position_name],
+                    inputs=[company_name, position_name, qna_history_output],
                     outputs=download_qa_output
                 )
                 
@@ -545,7 +552,7 @@ class CoverLetterApp:
                 
                 batch_download_btn.click(
                     fn=self.download_batch_file,
-                    inputs=[company_name, position_name],
+                    inputs=[company_name, position_name, batch_output],
                     outputs=batch_download_output
                 )
                 
@@ -558,7 +565,7 @@ class CoverLetterApp:
                 
                 download_cold_mail_btn.click(
                     fn=self.download_cold_mail,
-                    inputs=[company_name, position_name],
+                    inputs=[company_name, position_name, cold_mail_output],
                     outputs=download_cold_mail_output
                 )
                 
@@ -570,19 +577,13 @@ class CoverLetterApp:
                 
                 download_linkedin_dm_btn.click(
                     fn=self.download_linkedin_dm,
-                    inputs=[company_name, position_name],
+                    inputs=[company_name, position_name, linkedin_dm_output],
                     outputs=download_linkedin_dm_output
                 )
 
-                referral_btn.click(
-                    fn=self.generate_referral_dm,
-                    inputs=[referral_name, company_name, position_name],
-                    outputs=referral_output
-                )
-                
                 download_referral_btn.click(
                     fn=self.download_referral_dm,
-                    inputs=[company_name, position_name],
+                    inputs=[company_name, position_name, referral_output],
                     outputs=download_referral_output
                 )
 
