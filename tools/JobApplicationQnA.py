@@ -7,7 +7,7 @@ import time
 import json
 
 
-CACHE_EXPIRY = 60 * 60 * 24 * 7  # 7 days in seconds
+CACHE_EXPIRY = 60  
 
 
 class JobApplicationQnA:

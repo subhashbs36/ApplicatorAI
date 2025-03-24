@@ -1,0 +1,24 @@
+d:\Github\Cover_letter_generator\
+├── main.py
+├── app\
+│   ├── __init__.py
+│   ├── cover_letter_app.py
+│   ├── handlers\
+│   │   ├── __init__.py
+│   │   ├── file_handlers.py
+│   │   ├── generation_handlers.py
+│   │   ├── ui_handlers.py
+│   │   ├── resume_handlers.py
+│   │   └── qna_handlers.py
+│   └── utils\
+│       ├── __init__.py
+│       └── constants.py
+├── ui\
+│   ├── __init__.py
+│   ├── components.py
+│   └── event_handlers.py
+└── tools\
+    ├── __init__.py
+    ├── Crawler.py
+    ├── pdfGenerator.py
+    └── ... (other existing tool files)
