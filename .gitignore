@@ -14,6 +14,8 @@ cache/
 cold_mails/
 linkedin_dms/
 qna_responses/
+custom_resumes/
+generated_resumes/
 
 # Distribution / packaging
 .Python

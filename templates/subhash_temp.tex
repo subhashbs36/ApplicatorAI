@@ -1,0 +1,93 @@
+\documentclass[a4paper,9pt]{article}
+\usepackage[left=0.5in, right=0.5in, top=0.4in, bottom=0.4in]{geometry} % Balanced margins
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{parskip}
+\usepackage{graphicx}
+
+% Font & Spacing Adjustments
+\renewcommand{\baselinestretch}{1.0} % Standard readability
+\setlength{\parskip}{3pt} % Moderate spacing between sections
+\setlength{\parindent}{0pt} % No paragraph indentation
+
+% Formatting commands
+\titleformat{\section}{\large\bfseries\color{black}}{}{0em}{} % Professional section titles
+\titlespacing{\section}{0pt}{6pt}{3pt} % Adjust section spacing
+
+% Custom color for links
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+% Reduce item list spacing for compactness
+\setlist[itemize]{noitemsep, topsep=2pt, leftmargin=*}
+
+\begin{document}
+
+% ==== HEADER ====
+\begin{center}
+    {\Huge \textbf{Your Name}}\\[2pt]
+    \href{mailto:your.email@example.com}{your.email@example.com} \textbar{} (XXX) XXX-XXXX \textbar{} \href{https://yourwebsite.com}{yourwebsite.com}\\[2pt]
+    \href{https://linkedin.com/in/yourprofile}{LinkedIn} \textbar{} \href{https://github.com/yourgithub}{GitHub} \textbar{} City, State
+\end{center}
+
+% ==== HORIZONTAL LINE ====
+\vspace{-6pt}
+\noindent\rule{\textwidth}{0.6mm}
+\vspace{-6pt}
+
+% ==== EDUCATION ====
+\section*{Education}
+\textbf{University Name}, City, State \hfill \textit{Month YYYY – Month YYYY}\\
+\textit{Degree Name} \hfill \textbf{GPA: X.X}
+
+% ==== WORK EXPERIENCE ====
+\section*{Experience}
+\textbf{Job Title}, Company Name – Location \hfill \textit{Month YYYY – Month YYYY}\\
+\begin{itemize} 
+    \item Achieved X\% improvement in [process] by implementing [strategy/tool].
+    \item Developed [project/system] that resulted in [impact].
+\end{itemize}
+
+\textbf{Job Title}, Company Name – Location \hfill \textit{Month YYYY – Month YYYY}\\
+\begin{itemize} 
+    \item Managed [responsibility] leading to [result].
+    \item Automated [task] using [technology], saving X hours per week.
+\end{itemize}
+
+% ==== PROJECTS ====
+\section*{Projects}
+\textbf{Project Name} – \textit{Technology Used} \hfill \textit{Month YYYY}\\
+\begin{itemize}
+    \item Built [system/tool] that improved [metric] by X\%.
+\end{itemize}
+
+\textbf{Another Project Name} – \textit{Technology Used} \hfill \textit{Month YYYY}\\
+\begin{itemize}
+    \item Developed [feature] that optimized [performance].
+\end{itemize}
+
+% ==== SKILLS ====
+\section*{Skills}
+\begin{multicols}{2}
+\begin{itemize}
+    \item \textbf{Programming}: Python, C++, JavaScript
+    \item \textbf{Web Development}: HTML, CSS, React, Node.js
+    \item \textbf{Cloud \& DevOps}: AWS, Docker, Kubernetes
+    \item \textbf{Databases}: MySQL, MongoDB, PostgreSQL
+    \item \textbf{Tools}: Git, Linux, VS Code, JIRA
+\end{itemize}
+\end{multicols}
+
+% ==== PUBLICATIONS (IF APPLICABLE) ====
+\section*{Publications}
+\begin{itemize}
+    \item \href{#}{Title – Journal/Conference, YYYY}
+\end{itemize}
+
+\end{document}

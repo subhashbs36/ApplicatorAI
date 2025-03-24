@@ -3,3 +3,5 @@ gradio
 fpdf
 PyPDF2
 docx2txt
+reportlab
+gradio_pdf
