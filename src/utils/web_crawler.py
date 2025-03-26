@@ -6,6 +6,9 @@ import aiofiles
 import re
 import random
 from functools import lru_cache
+from pathlib import Path
+import os
+import hashlib
 
 class WebCrawler:
     """Class to handle web page crawling for job descriptions"""
@@ -13,47 +16,106 @@ class WebCrawler:
     def __init__(self):
         self.max_concurrent = 1  # Only need one URL at a time for job descriptions
         self.max_retries = 3
-        self.retry_delay = 2
-        self.user_agents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/122.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0'
-        ]
+        self.retry_delay = 1  # Reduced from 2 to 1 second
         self._browser_config = self._create_browser_config()
         self._crawl_config = self._create_crawl_config()
+        
+        # Set up paths for caching
+        self.base_path = Path(__file__).parent.parent.parent
+        self.data_path = self.base_path / "src" / "data"
+        self.cache_path = self.data_path / "cache"
+        
+        # Create directories if they don't exist
+        os.makedirs(self.cache_path, exist_ok=True)
     
     def _create_browser_config(self) -> BrowserConfig:
         """Create and cache browser configuration"""
         return BrowserConfig(
+            browser_type="firefox",
             headless=True,
-            verbose=False,
+            verbose=False,  # Disabled verbose logging for better performance
+            user_agent="random",
+            viewport_width=1280,
+            viewport_height=720,
+            text_mode=True,
             extra_args=[
                 "--disable-gpu",
                 "--disable-dev-shm-usage",
                 "--no-sandbox",
                 "--disable-web-security",
-                "--disable-features=IsolateOrigins,site-per-process",
-                f"--user-agent={random.choice(self.user_agents)}",
-                "--window-size=1920,1080"
-            ],
+                "--disable-features=IsolateOrigins,site-per-process"
+            ]
         )
-
+    
     def _create_crawl_config(self) -> CrawlerRunConfig:
         """Create and cache crawler configuration"""
         return CrawlerRunConfig(
-            cache_mode=CacheMode.BYPASS
+            prettiify=True,
+            exclude_external_links=True,
+            cache_mode=CacheMode.BYPASS,
+            exclude_social_media_links=True,
+            remove_overlay_elements=True,
+            excluded_tags=["nav", "footer"],
         )
+    
+    def _clean_content_for_cache(self, content: str) -> str:
+        """Clean the content before saving to cache to remove unwanted elements"""
+        # Remove footer sections that often contain unwanted links
+        footer_patterns = [
+            r'(?i)<footer.*?>.*?</footer>',
+            r'(?i)<!-- footer.*?-->.*?<!-- end footer -->',
+            r'(?i)---+\s*footer\s*---+.*?(?=\n\n|\Z)',
+            r'(?i)## footer.*?(?=\n##|\Z)',
+        ]
+        
+        for pattern in footer_patterns:
+            content = re.sub(pattern, '', content, flags=re.DOTALL)
+        
+        # Remove navigation, cookie notices, and other common unwanted elements
+        unwanted_sections = [
+            r'(?i)<nav.*?>.*?</nav>',
+            r'(?i)cookie policy.*?(?=\n\n|\Z)',
+            r'(?i)privacy policy.*?(?=\n\n|\Z)',
+            r'(?i)terms of (use|service).*?(?=\n\n|\Z)',
+            r'(?i)copyright ©.*?(?=\n\n|\Z)',
+            r'(?i)all rights reserved.*?(?=\n\n|\Z)',
+            r'(?i)follow us on.*?(?=\n\n|\Z)',
+            r'(?i)share this job.*?(?=\n\n|\Z)',
+        ]
+        
+        for pattern in unwanted_sections:
+            content = re.sub(pattern, '', content, flags=re.DOTALL)
+        
+        # Remove social media links and icons
+        content = re.sub(r'(?i)(facebook|twitter|linkedin|instagram|youtube)\.com', '', content)
+        
+        # Remove excessive newlines while preserving paragraph structure
+        content = re.sub(r'\n{3,}', '\n\n', content)
+        
+        return content.strip()
     
     async def crawl_url(self, url: str) -> str:
         """Crawl a single URL and return the content"""
+        # Check if we have a cached version
+        cache_file = self._get_cache_file_path(url)
+        if cache_file.exists():
+            async with aiofiles.open(cache_file, 'r', encoding='utf-8') as f:
+                content = await f.read()
+                print(f"Using cached content for: {url}")
+                return content
+                
+        crawler = None
         for attempt in range(self.max_retries):
-            crawler = AsyncWebCrawler(config=self._browser_config)
-            await crawler.start()
-
             try:
-                # Add delay between attempts
+                # Add minimal delay between attempts
                 if attempt > 0:
+                    print(f"Retrying {attempt+1}/{self.max_retries} for URL: {url}")
                     await asyncio.sleep(self.retry_delay * attempt)
+                
+                crawler = AsyncWebCrawler(config=self._browser_config)
+                await crawler.start()
+                
+                # Removed unnecessary sleep after browser start
                 
                 result = await crawler.arun(
                     url=url,
@@ -75,12 +137,24 @@ class WebCrawler:
                 )
                 
                 if result.success:
-                    print(f"Successfully crawled: {url}")
                     # Handle different result formats safely
-                    if hasattr(result, 'markdown') and result.markdown:
-                        return result.markdown.raw_markdown
+                    if hasattr(result, 'markdown') and result.markdown_v2:
+                        content = result.markdown_v2.raw_markdown
+                        # Clean content before saving to cache
+                        cleaned_content = self._clean_content_for_cache(content)
+                        # Save to cache
+                        await self._save_to_cache(url, cleaned_content)
+                        # Ensure browser is properly closed before returning
+                        await crawler.close()
+                        return cleaned_content
                     elif hasattr(result, 'text') and result.text:
-                        return result.text
+                        content = result.text
+                        # Clean content before saving to cache
+                        cleaned_content = self._clean_content_for_cache(content)
+                        # Save to cache
+                        await self._save_to_cache(url, cleaned_content)
+                        await crawler.close()
+                        return cleaned_content
                     elif hasattr(result, 'html') and result.html:
                         return f"HTML content retrieved (no markdown available): {url}"
                     else:
@@ -90,7 +164,7 @@ class WebCrawler:
                     print(f"Attempt {attempt + 1} blocked, retrying after delay...")
                     await asyncio.sleep(self.retry_delay * (attempt + 1))
                     continue
-                
+                    
                 print(f"Failed: {url} - Error: {result.error_message}")
                 return f"Error crawling URL: {result.error_message}"
 
@@ -125,20 +199,23 @@ class WebCrawler:
         if not content or content.startswith("Error"):
             return content
             
-        # Remove any HTML or markdown formatting that might remain
-        # Keep only the most relevant job description parts
-        
         # Look for sections that might contain job description
         job_sections = []
         sections = re.split(r'\n#{1,3} ', content)
         
-        keywords = ['job description', 'responsibilities', 'requirements', 
-                   'qualifications', 'about the role', 'about the position',
-                   'what you\'ll do', 'what we\'re looking for']
+        # Expanded keywords to include title and company info
+        keywords = [
+            'job title', 'company', 'location',  # Added job metadata keywords
+            'job description', 'responsibilities', 'requirements', 
+            'qualifications', 'about the role', 'about the position',
+            'what you\'ll do', 'what we\'re looking for', 'overview',
+            'about us', 'about the company', 'position summary', 'jobs-details'
+        ]
                    
         for section in sections:
             section_lower = section.lower()
-            if any(keyword in section_lower for keyword in keywords):
+            # Keep sections with keywords or the first section (usually contains title)
+            if any(keyword in section_lower for keyword in keywords) or section == sections[0]:
                 job_sections.append(section)
                 
         # If we found specific job sections, use them
@@ -151,7 +228,25 @@ class WebCrawler:
         # Remove any remaining markdown links
         processed_content = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', processed_content)
         
-        # Remove any extra whitespace
+        # Remove any extra whitespace while preserving paragraph structure
         processed_content = re.sub(r'\n{3,}', '\n\n', processed_content)
         
-        return processed_content
+        return processed_content.strip()
+
+    def _get_cache_file_path(self, url: str) -> Path:
+        """Generate a unique filename for the URL cache"""
+        # Create a hash of the URL to use as filename
+        url_hash = hashlib.md5(url.encode()).hexdigest()
+        return self.cache_path / f"{url_hash}.md"
+    
+    async def _save_to_cache(self, url: str, content: str) -> None:
+        """Save the crawled content to a markdown file"""
+        cache_file = self._get_cache_file_path(url)
+        try:
+            async with aiofiles.open(cache_file, 'w', encoding='utf-8') as f:
+                # Add URL as a comment at the top of the file
+                await f.write(f"<!-- Source URL: {url} -->\n\n")
+                await f.write(content)
+            print(f"Saved content to cache: {cache_file}")
+        except Exception as e:
+            print(f"Error saving to cache: {str(e)}")

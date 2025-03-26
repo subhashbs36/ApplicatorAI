@@ -54,7 +54,7 @@ class ResumeBuilder:
         {resume_content}
         
         Required sections: {', '.join(sections)}
-        Keywords to emphasize: {user_suggestion if user_suggestion else 'None specified'}
+        Suggestions: {user_suggestion if user_suggestion else 'None specified'}
         
         Follow this LaTeX template structure:
         {template_content}
@@ -247,7 +247,7 @@ class ResumeBuilder:
         except Exception as e:
             gr.Warning(f"Error adding template: {str(e)}")
 
-    def incorporate_suggestions(self, latex_code, resume_data, suggestions):
+    def incorporate_suggestions(self, latex_code, resume_data, sections, suggestions):
         """Incorporate AI suggestions into the LaTeX code"""
         if not latex_code or not suggestions:
             return latex_code
@@ -268,6 +268,8 @@ class ResumeBuilder:
 
             CURRENT LATEX CODE:
             {latex_code}
+
+            Required sections: {', '.join(sections)}
 
             Requirements:
             1. Maintain valid LaTeX syntax

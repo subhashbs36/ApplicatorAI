@@ -4,8 +4,8 @@ from gradio_pdf import PDF
 def create_header():
     return gr.Markdown(
         """
-        <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #6366f1); border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <h1 style="color: white; font-size: 1.8em; margin: 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); display: inline;">Job Application Assistant</h1>
+        <div style="text-align: center; padding: 10px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #6366f1); border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <h1 style="color: white; font-size: 1.8em; margin: 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); display: inline;">Applicator</h1>
             <span style="color: #e2e8f0; font-size: 1.1em; margin-left: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">• AI-powered application helper</span>
         </div>
         """

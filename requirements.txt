@@ -7,3 +7,4 @@ reportlab
 gradio_pdf
 beautifulsoup4 
 requests
+Crawl4AI==0.4.248

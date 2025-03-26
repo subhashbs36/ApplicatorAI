@@ -226,7 +226,7 @@ def setup_event_handlers(app, ui_elements):
 
     fix_latex_pdf_btn.click(
         fn=app.latex_code_fixer,
-        inputs=[resume_latex_preview, ai_suggestions],
+        inputs=[resume_latex_preview, resume_sections, ai_suggestions],
         outputs=[resume_latex_preview, pdf_preview]
     )
 

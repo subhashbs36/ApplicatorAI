@@ -102,36 +102,59 @@ class CoverLetterApp:
         self.company_name = company_name
         self.position_name = position_name
         
+        gr.Info("🚀 Starting application workflow...")
         progress(0, desc="Starting...")
+        
         # Handle the resume file (either uploaded or selected)
         resume_path = None
         if resume_file:
+            # gr.Info("📄 Processing uploaded resume...")
             progress(0.1, desc="Saving uploaded resume...")
             resume_path = self.resume_processor.save_resume(resume_file)
         elif selected_resume:
             resume_path = selected_resume
 
         if not resume_path:
+            gr.Warning("⚠️ No resume provided")
             return "Please upload or select a resume."
-        
+
+        # Check if company name and position name are provided
+        if not company_name or not position_name:
+            gr.Warning("⚠️ Company name and position name are required")
+            return "Please provide both company name and position name."
+            
+        # Store company and position names
+        self.company_name = company_name
+        self.position_name = position_name
+
+
         # Read resume content
+        # gr.Info("📝 Extracting resume content...")
         progress(0.2, desc="Extracting resume content...")
         resume_content = self.resume_processor.extract_text(resume_path)
         if resume_content.startswith("Error"):
+            gr.Warning(f"❌ Error processing resume: {resume_content}")
             return resume_content
         
         # Get job description (either from text input or by crawling URL)
         final_job_description = job_description
         if job_url and not job_description:
+            gr.Info("🌐 Crawling job description from URL...")
             progress(0.3, desc="Crawling job description from URL...")
             crawled_content = self.crawl_job_description(job_url)
             if crawled_content.startswith("Error"):
+                gr.Warning(f"❌ Error crawling job description: {crawled_content}")
                 return crawled_content
             
             progress(0.4, desc="Processing job description...")
             final_job_description = self.web_crawler.clean_job_description(crawled_content)
+            
+            # Check if crawled content is too short
+            if len(final_job_description.split()) < 50:  # Arbitrary threshold of 50 words
+                gr.Warning("⚠️ Crawled job description seems incomplete or too short. Please consider manually entering the job description for better results.")
         
         if not final_job_description or final_job_description.strip() == "":
+            gr.Warning("⚠️ No job description provided")
             return "Please provide a job description or a valid job posting URL."
         
         # Store resume and job description for QnA feature
@@ -139,6 +162,7 @@ class CoverLetterApp:
         self.temp_job_description = final_job_description
         
         # Generate cover letter
+        # gr.Info("✍️ Generating cover letter...")
         progress(0.7, desc="Generating cover letter...")
         cover_letter = self.cover_letter_generator.generate_cover_letter(
             resume_content, final_job_description, company_name, position_name
@@ -148,6 +172,7 @@ class CoverLetterApp:
         self.temp_cover_letter = cover_letter
         
         progress(1.0, desc="Done!")
+        gr.Info("✅ Cover letter generated successfully!")
         return cover_letter  # Return None for file_output to avoid auto-saving
     
     def generate_qna_answer(self, application_question, word_limit, company_name, position_name):
@@ -623,7 +648,7 @@ class CoverLetterApp:
             return file_path, f"✅ LaTeX compilation successful! Click 'Download Resume PDF' to save the file."
         return None, "Failed to generate PDF"
 
-    def latex_code_fixer(self, latex_code, suggestions):
+    def latex_code_fixer(self, latex_code, sections, suggestions):
         """Fix LaTeX errors in the provided code"""
         if not latex_code:
             gr.Warning("Please generate resume content first.")
@@ -632,7 +657,7 @@ class CoverLetterApp:
         # Handle suggestions if provided
         if suggestions and suggestions.strip():
             # Incorporate suggestions into the LaTeX code
-            latex_code = self.resume_builder.incorporate_suggestions(latex_code, self.temp_resume_content, suggestions)
+            latex_code = self.resume_builder.incorporate_suggestions(latex_code, self.temp_resume_content, sections, suggestions)
 
         # Store the LaTeX code in the resume builder
         self.resume_builder.temp_latex_content = latex_code
