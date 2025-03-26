@@ -17,7 +17,7 @@ from ..ui.components import create_header, create_resume_section, create_job_det
 from ..ui.event_handlers import setup_event_handlers
 from src.utils.job_extractor import JobDetailsExtractor
 
-class CoverLetterApp:
+class Applicator:
     """Main application class"""
     def __init__(self):
         # Set up base paths
@@ -293,7 +293,7 @@ class CoverLetterApp:
         
         with gr.Blocks(title="Professional Job Application Assistant", theme=custom_theme) as demo:
             # Create a stylish header with custom CSS
-            create_header()
+            create_header(github_username="subhashbs36", author_name="Subhash")
             
             with gr.Row():
                 with gr.Column(scale=3):

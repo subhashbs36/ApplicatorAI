@@ -1,15 +1,50 @@
 import gradio as gr
 from gradio_pdf import PDF
 
-def create_header():
-    return gr.Markdown(
-        """
-        <div style="text-align: center; padding: 10px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #6366f1); border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            <h1 style="color: white; font-size: 1.8em; margin: 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); display: inline;">Applicator</h1>
-            <span style="color: #e2e8f0; font-size: 1.1em; margin-left: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">• AI-powered application helper</span>
+def create_header(title="Applicator", subtitle="AI-powered application helper", 
+                 github_username="subhashbs36", repo_name="Cover_letter_generator", author_name="Subhash"):
+    """
+    Create a customizable header for the application.
+    
+    Args:
+        title (str): The title of the application
+        subtitle (str): The subtitle/description of the application
+        github_username (str): GitHub username for links
+        repo_name (str): Repository name for GitHub links
+        author_name (str): Author name to display in the footer
+    
+    Returns:
+        gradio.HTML: A styled header component using HTML instead of Markdown
+    """
+    # Use provided values or defaults
+    github_username = github_username or "subhashbs36"
+    author_name = author_name or "Subhash"
+    
+    # Create a single-line compact header with all elements inline
+    html_content = f"""
+    <div style="text-align: center; padding: 12px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #6366f1); border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; margin-right: 10px;">
+            <h1 style="color: white; font-size: 1.6em; margin: 0; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); display: inline;">{title}</h1>
+            <span style="color: #e2e8f0; font-size: 1em; margin-left: 8px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">• {subtitle}</span>
         </div>
-        """
-    )
+        
+        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <a href="https://github.com/{github_username}/{repo_name}" target="_blank" style="color: #e2e8f0; text-decoration: none;">
+                <img src="https://img.shields.io/github/stars/{github_username}/{repo_name}?style=social" alt="GitHub stars" style="vertical-align: middle;">
+            </a>
+            <a href="https://github.com/{github_username}/{repo_name}/issues" target="_blank" style="color: #e2e8f0; text-decoration: none;">
+                <img src="https://img.shields.io/github/issues/{github_username}/{repo_name}" alt="Issues" style="vertical-align: middle;">
+            </a>
+            <a href="https://www.buymeacoffee.com/{github_username}" target="_blank" style="color: #e2e8f0; text-decoration: none;">
+                <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange" alt="Buy Me A Coffee" style="vertical-align: middle;">
+            </a>
+            <span style="color: #e2e8f0; font-size: 0.8em;">Made with ❤️ by <a href="https://github.com/{github_username}" target="_blank" style="color: #fff; text-decoration: underline;">{author_name}</a></span>
+        </div>
+    </div>
+    """
+    
+    # Use gr.HTML instead of gr.Markdown to properly render HTML
+    return gr.HTML(html_content)
 
 def create_resume_section(resume_processor):
     with gr.Group() as section:

@@ -1,4 +1,4 @@
-from src.app.cover_letter_app import CoverLetterApp
+from src.app.applicator import Applicator
 import warnings
 
 def main():
@@ -6,7 +6,7 @@ def main():
     # Filter out specific Gradio warnings about argument mismatches
     warnings.filterwarnings("ignore", category=UserWarning, module="gradio.utils")
     
-    app = CoverLetterApp()
+    app = Applicator()
     demo = app.build_ui()
     demo.launch(share=False, debug=True)
 
