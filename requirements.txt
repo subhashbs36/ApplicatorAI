@@ -5,3 +5,5 @@ PyPDF2
 docx2txt
 reportlab
 gradio_pdf
+beautifulsoup4 
+requests

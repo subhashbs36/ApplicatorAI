@@ -7,15 +7,10 @@ __pycache__/
 *.so
 
 # Custom Folders
-cover_letters/
-resumes/
-cache/
 .gradio/
-cold_mails/
-linkedin_dms/
-qna_responses/
-custom_resumes/
-generated_resumes/
+src/data/cache
+src/data/responses/
+src/data/user_resume/
 
 # Distribution / packaging
 .Python
