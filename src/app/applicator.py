@@ -284,9 +284,10 @@ class Applicator:
         """Build the Gradio UI"""
         # Create a custom theme with better colors and fonts
         custom_theme = gr.themes.Soft(
-            primary_hue="purple",
-            secondary_hue="purple", 
-            neutral_hue="zinc",
+            primary_hue="rose",
+            secondary_hue="rose", 
+            neutral_hue="gray",
+            spacing_size="sm",
             # font=("Poppins", "Roboto", "system-ui", "sans-serif"),
             # font_mono=("Fira Code", "ui-monospace", "Consolas", "monospace")
         )

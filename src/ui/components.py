@@ -14,37 +14,34 @@ def create_header(title="Applicator", subtitle="AI-powered application helper",
         author_name (str): Author name to display in the footer
     
     Returns:
-        gradio.HTML: A styled header component using HTML instead of Markdown
+        gradio.Markdown: A simple header component using Markdown styled as a navbar
     """
     # Use provided values or defaults
     github_username = github_username or "subhashbs36"
-    author_name = author_name or "Subhash"
+    author_name = author_name or "Subhash B S"
     
-    # Create a single-line compact header with all elements inline
-    html_content = f"""
-    <div style="text-align: center; padding: 12px; background: linear-gradient(135deg, #6366f1, #8b5cf6, #6366f1); border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-        <div style="display: flex; align-items: center; margin-right: 10px;">
-            <h1 style="color: white; font-size: 1.6em; margin: 0; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); display: inline;">{title}</h1>
-            <span style="color: #e2e8f0; font-size: 1em; margin-left: 8px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">• {subtitle}</span>
-        </div>
-        
-        <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
-            <a href="https://github.com/{github_username}/{repo_name}" target="_blank" style="color: #e2e8f0; text-decoration: none;">
-                <img src="https://img.shields.io/github/stars/{github_username}/{repo_name}?style=social" alt="GitHub stars" style="vertical-align: middle;">
+    # Create a simple markdown header with inline styling to appear as a navbar
+    markdown_content = f"""
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 0 8px 0; margin-top: -10px;">
+        <span style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 2.5em; font-weight: bold;">{title}</span>
+            <span style="font-weight: normal; font-size: 1.0em; color: #666;">•</span>
+            <span style="font-weight: normal; font-size: 1.0em;">{subtitle}</span>
+        </span>
+        <span style="display: flex; align-items: center; gap: 12px;">
+            <a href="https://github.com/{github_username}/{repo_name}" target="_blank" style="text-decoration: none;">
+                <img src="https://img.shields.io/github/stars/{github_username}/{repo_name}?style=social" alt="GitHub stars">
             </a>
-            <a href="https://github.com/{github_username}/{repo_name}/issues" target="_blank" style="color: #e2e8f0; text-decoration: none;">
-                <img src="https://img.shields.io/github/issues/{github_username}/{repo_name}" alt="Issues" style="vertical-align: middle;">
+            <a href="https://www.buymeacoffee.com/subhashbs" target="_blank" style="text-decoration: none;">
+                <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange" alt="Buy Me A Coffee">
             </a>
-            <a href="https://www.buymeacoffee.com/{github_username}" target="_blank" style="color: #e2e8f0; text-decoration: none;">
-                <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange" alt="Buy Me A Coffee" style="vertical-align: middle;">
-            </a>
-            <span style="color: #e2e8f0; font-size: 0.8em;">Made with ❤️ by <a href="https://github.com/{github_username}" target="_blank" style="color: #fff; text-decoration: underline;">{author_name}</a></span>
-        </div>
+            <span style="font-size: 0.9em;">Made with ❤️ by <a href="https://github.com/{github_username}" target="_blank" style="text-decoration: underline;">{author_name}</a></span>
+        </span>
     </div>
     """
     
-    # Use gr.HTML instead of gr.Markdown to properly render HTML
-    return gr.HTML(html_content)
+    # Use gr.HTML instead of gr.Markdown to properly render the inline styling
+    return gr.HTML(markdown_content)
 
 def create_resume_section(resume_processor):
     with gr.Group() as section:
