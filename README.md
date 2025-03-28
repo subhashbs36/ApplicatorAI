@@ -1,11 +1,10 @@
 <div align="center">
-  <img src="assets\applicator_no_background.png" alt="Applicator AI Logo" width="200" style="margin-bottom: 20px"/>
+  <img src="assets/applicator_no_background.png" alt="Applicator AI Logo" width="200"/>
   
   # ✨ Applicator AI ✨
   
   <h2 style="font-style: italic; color: #666;">Your AI-Powered Job Application Assistant</h2>
 
-  <hr style="width: 50%; margin: 20px auto;">
 </div>
 
 ![Applicator](https://img.shields.io/badge/Applicator-AI%20Application%20Helper-8b5cf6) [![GitHub issues](https://img.shields.io/github/issues/subhashbs36/ApplicatorAI)](https://github.com/subhashbs36/ApplicatorAI/issues) [![GitHub stars](https://img.shields.io/github/stars/subhashbs36/ApplicatorAI?style=social)](https://github.com/subhashbs36/ApplicatorAI/stargazers) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/subhashbs36/ApplicatorAI/blob/main/LICENSE) ![Version](https://img.shields.io/badge/version-1.0.3-blue) [![Docker](https://img.shields.io/badge/Docker-Available-2496ED?logo=docker)](https://github.com/subhashbs36/ApplicatorAI/blob/main/Dockerfile)
