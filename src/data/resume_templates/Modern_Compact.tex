@@ -1,0 +1,131 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{ragged2e}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.530in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textheight}{1.5in}
+
+\urlstyle{rm}
+\raggedbottom
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-6pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{#2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{1.5pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{\small #1} & \small #2 \\
+      \textit{\small #4} & \textit{\small #3} \\
+    \end{tabular*}\vspace{-4pt}
+}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=10pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-----------------------------
+%%%%%%  CV STARTS HERE  %%%%%%
+
+\begin{document}
+\justify
+%----------HEADING-----------------
+\begin{center}
+  \textbf{\Large YOUR NAME} \\
+  \vspace{2pt}
+  \small 
+  \href{mailto:your.email@example.com}{your.email@example.com} $|$ +1 (XXX) XXX-XXXX $|$
+  \href{https://yourwebsite.com}{yourwebsite.com} $|$
+  \href{https://github.com/yourgithub}{github.com/yourgithub} $|$
+  \href{https://linkedin.com/in/yourlinkedin}{linkedin.com/in/yourlinkedin}
+\end{center}
+
+%-----------EDUCATION-----------------
+\vspace{-4pt}
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Your University}{Location}
+      {Start Date - End Date}{Degree, Major; \textbf{GPA: X.X}}
+  \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------------
+\vspace{-6pt}
+\section{Experience}
+\resumeSubHeadingListStart
+    \resumeSubheading
+      {Job Title}{Start Date - End Date}
+      {Location}{Company Name}
+      \resumeItemListStart
+        \resumeItem{Project/Task 1: }
+          {Description of the work done, key technologies used, and impact.}
+        \resumeItem{Project/Task 2: }
+          {Description of another project or responsibility.}
+      \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+%-----------PUBLICATIONS (if any)-----------------
+  \vspace{0pt}
+  \section{Publications}
+  \resumeSubHeadingListStart
+  \resumeSubItem{Publication Title: }{Journal/Conference, Year. \textit{\href{https://publicationlink.com}{Link}}}
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+\vspace{0pt}
+\section{Projects}
+\resumeSubHeadingListStart
+\resumeSubItem{Project Name: }{Brief description of the project, key technologies used. \textit{\href{https://projectlink.com}{Link}}}
+\resumeSubHeadingListEnd
+
+%-----------SKILLS-----------------
+\vspace{0pt}
+\section{Skills}
+\resumeSubHeadingListStart
+    \resumeSubItem{Languages \& Frameworks: }{Python, C++, JavaScript, etc.}
+    \resumeSubItem{Web, ML \& API Development: }{HTML, CSS, REST APIs, TensorFlow, PyTorch, etc.}
+    \resumeSubItem{Cloud \& DevOps: }{AWS, Docker, Kubernetes, Jenkins, etc.}
+    \resumeSubItem{Databases: }{MySQL, PostgreSQL, MongoDB, etc.}
+\resumeSubHeadingListEnd
+
+%-----------HONORS AND AWARDS-----------------
+\vspace{0pt}
+\section{Honors and Awards}
+\resumeSubHeadingListStart
+    \resumeSubItem{}{Award Name, Year.}
+    \resumeSubItem{}{Another Award, Year.}
+\resumeSubHeadingListEnd
+
+\end{document}

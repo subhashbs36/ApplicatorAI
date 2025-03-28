@@ -632,7 +632,8 @@ class Applicator:
     def latex_compiler(self, latex_code):
         """Fix LaTeX errors in the provided code"""
         if not latex_code:
-            return None, "Please generate resume content first."
+            gr.Warning("Please generate resume content first.")
+            return None
         
         # Store the LaTeX code in the resume builder
         self.resume_builder.temp_latex_content = latex_code
@@ -646,12 +647,15 @@ class Applicator:
         )
 
         if error or file_path is None:
-            gr.Warning(f"Failed to compile LaTeX recheck the code or rebuild the resume")
-            return None, f"❌ LaTeX Compilation Error:\n\nPlease Run Auto Fix Error"
+            gr.Warning(f"Failed to compile LaTeX. Please recheck the code or rebuild the resume.")
+            return None
         
         if file_path and os.path.exists(file_path):
-            return file_path, f"✅ LaTeX compilation successful! Click 'Download Resume PDF' to save the file."
-        return None, "Failed to generate PDF"
+            gr.Info("✅ LaTeX compilation successful! Click 'Download Resume PDF' to save the file.")
+            return file_path
+        
+        gr.Warning("Failed to generate PDF.")
+        return None
 
     def latex_code_fixer(self, latex_code, sections, suggestions):
         """Fix LaTeX errors in the provided code"""
