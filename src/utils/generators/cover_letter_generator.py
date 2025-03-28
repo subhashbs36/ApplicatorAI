@@ -131,8 +131,8 @@ class CoverLetterGenerator:
         4. Write a compelling opening paragraph that specifically mentions the {position_name} position at {company_name}
         5. In the body paragraphs, directly connect 3-4 specific achievements from the resume to the requirements in the job description which is from Linkedin
         6. Explain specifically why the candidate is interested in {company_name} (research their mission or recent projects)
-        7. Include a strong closing paragraph with contact information from the resume
-        8. End with "Sincerely," followed by the full name from the resume
+        7. Include a strong closing paragraph
+        8. End with "Sincerely," followed by the full name, contact information from the resume
         
         The cover letter should be professional, Natural, concise yet comprehensive (around 300-400 words), and highlight the most relevant experiences and skills from the resume that match the job description.
         
