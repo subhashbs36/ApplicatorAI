@@ -66,7 +66,13 @@ class ResumeBuilder:
         4. Start bullet points with strong action verbs
         5. Maintain proper LaTeX syntax and formatting
         6. Ensure all sections fit within margins
-        7. If content is big, concise the content
+        7. Prioritize relevant experience and skills that match the job description
+        8. Quantify achievements whenever possible (%, $, numbers)
+        9. Use industry-specific terminology from the job description
+        10. If content is too lengthy, prioritize most relevant information and concisely rewrite
+        
+        IMPORTANT: Analyze the job description for key technical skills, qualifications, and responsibilities. 
+        Ensure these are prominently featured in the resume where applicable.
         
         Return ONLY the complete LaTeX code, no explanations.
         """
