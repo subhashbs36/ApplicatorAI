@@ -157,7 +157,7 @@ class Applicator:
                 gr.Warning("⚠️ To proceed, please manually copy and paste the job description from the original posting.")
                 return "Error: Not enough content found in job description. Please verify the URL or paste the description manually."
         
-        elif final_job_description or final_job_description.strip() == "":
+        elif not final_job_description or final_job_description.strip() == "":
             gr.Warning("⚠️ No job description provided")
             return "Please provide a job description or a valid job posting URL."
         
