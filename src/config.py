@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 import google.generativeai as genai
 
@@ -6,7 +7,7 @@ import google.generativeai as genai
 load_dotenv()
 
 # Configure Gemini API
-API_KEY = os.environ.get("GEMINI_API_KEY")
+API_KEY = os.getenv("GEMINI_API_KEY")
 if not API_KEY:
     raise EnvironmentError("Missing GEMINI_API_KEY in environment variables")
 
@@ -14,9 +15,13 @@ genai.configure(api_key=API_KEY)
 
 # Constants
 MAX_TOKEN_LENGTH = 8000
-CACHE_EXPIRY = 60  # 1 minute in seconds
+CACHE_EXPIRY = 120  # 2 minutes in seconds
+VERSION = "1.0.3"
 
-# Create necessary directories
+# Define the root directory for storing files
+ROOT_DIR = Path("src/data")
+
+# List of required directories inside ROOT_DIR
 REQUIRED_DIRS = [
     "resumes",
     "cover_letters",
@@ -26,5 +31,6 @@ REQUIRED_DIRS = [
     "generated_resumes"
 ]
 
+# Create necessary directories
 for dir_name in REQUIRED_DIRS:
-    os.makedirs(dir_name, exist_ok=True)
+    (ROOT_DIR / dir_name).mkdir(parents=True, exist_ok=True)

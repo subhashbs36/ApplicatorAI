@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  applicator:
+    build: .
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - .env
+    environment:
+      - PYTHONPATH=/app
+      - PORT=7860
+    depends_on:
+      - miktex
+    restart: unless-stopped
+
+  miktex:
+    image: miktex/miktex:latest
+    volumes:
+      - miktex_data:/var/lib/miktex
+    restart: unless-stopped
+
+volumes:
+  miktex_data:
+    driver: local

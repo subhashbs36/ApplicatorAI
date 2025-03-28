@@ -55,7 +55,7 @@ class WebCrawler:
             cache_mode=CacheMode.BYPASS,
             exclude_social_media_links=True,
             remove_overlay_elements=True,
-            excluded_tags=["nav", "footer"],
+            excluded_tags=["nav", "footer"],            
         )
     
     def _clean_content_for_cache(self, content: str) -> str:
@@ -229,9 +229,34 @@ class WebCrawler:
         processed_content = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', processed_content)
         
         # Remove any extra whitespace while preserving paragraph structure
-        processed_content = re.sub(r'\n{3,}', '\n\n', processed_content)
+        processed_content = re.sub(r'\n{3,}', '\n\n', processed_content).strip()
         
-        return processed_content.strip()
+        # Limit to first 100 lines before saving
+        content_lines = processed_content.splitlines()
+        limited_content = '\n'.join(content_lines[:100])
+        
+        # Save the cleaned job description to a cache file
+        # Note: This is a static method, so we need to create a unique filename
+        # without access to self.cache_path
+        try:
+            # Generate a unique filename based on content hash
+            content_hash = hashlib.md5(limited_content.encode()).hexdigest()
+            base_path = Path(__file__).parent.parent.parent
+            cache_path = base_path / "src" / "data" / "cache"
+            cache_file = cache_path / f"cleaned_{content_hash}.md"
+            
+            # Ensure the cache directory exists
+            os.makedirs(cache_path, exist_ok=True)
+            
+            # Save the cleaned content to the cache file
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                f.write("<!-- Cleaned Job Description -->\n\n")
+                f.write(limited_content)
+            print(f"Saved cleaned job description to cache: {cache_file}")
+        except Exception as e:
+            print(f"Error saving cleaned job description to cache: {str(e)}")
+            
+        return limited_content
 
     def _get_cache_file_path(self, url: str) -> Path:
         """Generate a unique filename for the URL cache"""

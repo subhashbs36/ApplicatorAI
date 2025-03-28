@@ -252,7 +252,6 @@ def setup_event_handlers(app, ui_elements):
             context_source,
             resume_file,
             resume_dropdown,
-            job_description,
             company_name,
             position_name
         ],

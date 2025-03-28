@@ -1,4 +1,3 @@
-D:\GITHUB\COVER_LETTER_GENERATOR
 |   .env
 |   .gitignore
 |   app.py
@@ -7,20 +6,6 @@ D:\GITHUB\COVER_LETTER_GENERATOR
 |   README.md
 |   requirements.txt
 |
-+---.gradio
-|       certificate.pem
-|
-+---old Version
-|       Coverletter v1.py
-|       Coverletter v2.py
-|       Coverletter v3.py
-|       Coverletter v4.py
-|       Coverletterv5.py
-|       Coverletterv6.py
-|       Coverletterv7.py
-|       Coverletterv8.py
-|       Coverletterv9.py
-|
 +---src
 |   |   config.py
 |   |   __init__.py
@@ -28,150 +13,28 @@ D:\GITHUB\COVER_LETTER_GENERATOR
 |   +---app
 |   |   |   cover_letter_app.py
 |   |   |   __init__.py
-|   |   |   
-|   |   \---__pycache__
-|   |           cover_letter_app.cpython-312.pyc
-|   |           __init__.cpython-312.pyc
-|   |
 |   +---data
-|   |   +---cache
-|   |   |       25cba25eaea2dcf170d8d6050a794e46.md
-|   |   |       
+|   |   +---cache      
 |   |   +---responses
 |   |   |   +---ai_mails
 |   |   |   +---cache
 |   |   |   +---cold_mails
 |   |   |   +---cover_letters
-|   |   |   |       Cover_Letter_UCR_Basic_Needs_Basic_Needs_CalFresh_Student_Intern_20250326012127.pdf
-|   |   |   |       Cover_Letter_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326011336.pdf
-|   |   |   |
 |   |   |   +---generated_pdfs
 |   |   |   +---generated_resumes
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133913.aux
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133913.log
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133913.out
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133913.pdf
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133913.tex    
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133924.pdf    
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325133924.tex
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134032.aux    
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134032.log    
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134032.out
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134032.pdf
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134032.tex
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134045.pdf    
-|   |   |   |       Resume_Airbnb_Machine_Learning_Engineering_Intern_PhD_20250325134045.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044307.aux
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044307.log
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044307.out
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044307.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044307.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044326.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044326.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044630.aux
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044630.log
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044630.out
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044630.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044630.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044644.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044644.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044736.aux
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044736.log
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044736.out
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044736.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044736.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044751.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044751.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044850.aux
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044850.log
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044850.out
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044850.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044910.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326044910.tex
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326045018.pdf
-|   |   |   |       Resume_Hewlett_Packard_Enterprise_Hewlett_Packard_Labs_-_Machine_Learning_Research_Associate_Intern_Open_20250326045018.tex
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164657.aux
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164657.log
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164657.out
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164657.pdf
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164657.tex
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164708.pdf
-|   |   |   |       Resume_Logitech_Image_Processing_Intern_20250325164708.tex
-|   |   |   |       Resume_Rivian_Internship_20250325040634.aux
-|   |   |   |       Resume_Rivian_Internship_20250325040634.log
-|   |   |   |       Resume_Rivian_Internship_20250325040634.out
-|   |   |   |       Resume_Rivian_Internship_20250325040634.tex
-|   |   |   |       Resume_Rivian_Internship_20250325040649.pdf
-|   |   |   |       Resume_Rivian_Internship_20250325040649.tex
-|   |   |   |       Resume_Rivian_Internship_20250325040748.pdf
-|   |   |   |       Resume_Rivian_Internship_20250325040748.tex
-|   |   |   |       Resume_temp_company_temp_position_20250325164742.aux
-|   |   |   |       Resume_temp_company_temp_position_20250325164742.log
-|   |   |   |       Resume_temp_company_temp_position_20250325164742.out
-|   |   |   |       Resume_temp_company_temp_position_20250325164742.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250325164742.tex
-|   |   |   |       Resume_temp_company_temp_position_20250325164751.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250325164751.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326015038.aux
-|   |   |   |       Resume_temp_company_temp_position_20250326015038.log
-|   |   |   |       Resume_temp_company_temp_position_20250326015038.out
-|   |   |   |       Resume_temp_company_temp_position_20250326015038.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326015038.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326015050.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326015050.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326044412.aux
-|   |   |   |       Resume_temp_company_temp_position_20250326044412.log
-|   |   |   |       Resume_temp_company_temp_position_20250326044412.out
-|   |   |   |       Resume_temp_company_temp_position_20250326044412.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326044412.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326044425.aux
-|   |   |   |       Resume_temp_company_temp_position_20250326044425.log
-|   |   |   |       Resume_temp_company_temp_position_20250326044425.out
-|   |   |   |       Resume_temp_company_temp_position_20250326044425.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326044425.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326044441.aux
-|   |   |   |       Resume_temp_company_temp_position_20250326044441.log
-|   |   |   |       Resume_temp_company_temp_position_20250326044441.out
-|   |   |   |       Resume_temp_company_temp_position_20250326044441.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326044441.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326044453.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326044453.tex
-|   |   |   |       Resume_temp_company_temp_position_20250326044538.pdf
-|   |   |   |       Resume_temp_company_temp_position_20250326044538.tex
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014910.aux
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014910.log
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014910.out
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014910.pdf
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014910.tex
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014924.pdf
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326014924.tex
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015941.aux
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015941.log
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015941.out
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015941.pdf
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015941.tex
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015950.pdf
-|   |   |   |       Resume_UCR_Basic_Needs_Basic_Needs_RPantry_Student_Intern_20250326015950.tex
-|   |   |   |
 |   |   |   +---linkedin_dms
-|   |   |   \---qna_responses
+|   |   |   +---qna_responses
+|   |   |       
 |   |   +---resume_templates
 |   |   |       default_resume.tex
 |   |   |       subhash_temp.tex
 |   |   |       
-|   |   \---user_resume
-|   |           Subhash Resume March 2025 v1 - OnCampus.pdf
-|   |           Subhash Resume March 2025.pdf
-|   |           Vivek Resume Jan 2025 v1 - Copy.pdf
-|   |
+|   |   +---user_resume
+|   |   |
 |   +---ui
 |   |   |   components.py
 |   |   |   event_handlers.py
 |   |   |
-|   |   \---__pycache__
-|   |           components.cpython-312.pyc
-|   |           event_handlers.cpython-312.pyc
-|   |
 |   +---utils
 |   |   |   job_extractor.py
 |   |   |   web_crawler.py
@@ -189,61 +52,4 @@ D:\GITHUB\COVER_LETTER_GENERATOR
 |   |   |   |   resume_processor.py
 |   |   |   |   __init__.py
 |   |   |   |   
-|   |   |   \---__pycache__
-|   |   |           ai_mail_generator.cpython-312.pyc
-|   |   |           cold_mail_generator.cpython-312.pyc
-|   |   |           cover_letter_generator.cpython-312.pyc
-|   |   |           cover_letter_to_pdf.cpython-312.pyc
-|   |   |           job_application_qna.cpython-312.pyc
-|   |   |           linkedin_dm_generator.cpython-312.pyc
-|   |   |           pdf_generator.cpython-312.pyc
-|   |   |           referral_dm_generator.cpython-312.pyc
-|   |   |           resume_builder.cpython-312.pyc
-|   |   |           resume_processor.cpython-312.pyc
-|   |   |           __init__.cpython-312.pyc
-|   |   |
-|   |   \---__pycache__
-|   |           job_extractor.cpython-312.pyc
-|   |           web_crawler.cpython-312.pyc
-|   |           __init__.cpython-312.pyc
-|   |
-|   \---__pycache__
-|           __init__.cpython-312.pyc
-|
-+---tools
-|   |   ColdMailGenerator.py
-|   |   coverLetterGenerator.py
-|   |   Crawler.py
-|   |   JobApplicationQnA.py
-|   |   LinkedInDMGenerator.py
-|   |   pdfGenerator.py
-|   |   pdfProcessing.py
-|   |   ReferralDMGenerator.py
-|   |   ResumeBuilder.py
-|   |   
-|   \---__pycache__
-|           ColdMailGenerator.cpython-312.pyc
-|           coverLetterGenerator.cpython-312.pyc
-|           Crawler.cpython-312.pyc
-|           JobApplicationQnA.cpython-312.pyc
-|           LatexCompiler.cpython-312.pyc
-|           latex_processor.cpython-312.pyc
-|           LinkedInDMGenerator.cpython-312.pyc
-|           pdfGenerator.cpython-312.pyc
-|           pdfProcessing.cpython-312.pyc
-|           ReferralDMGenerator.cpython-312.pyc
-|           ResumeBuilder.cpython-312.pyc
-|           ResumeProcessor.cpython-312.pyc
-|
-+---ui
-|   |   components.py
-|   |   event_handlers.py
-|   |
-|   \---__pycache__
-|           components.cpython-312.pyc
-|           event_handlers.cpython-312.pyc
-|
-\---__pycache__
-        coverLetterGenerator.cpython-312.pyc
-        crawler.cpython-312.pyc
-        pdfProcessing.cpython-312.pyc
+|___|___|___|

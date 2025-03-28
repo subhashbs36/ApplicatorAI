@@ -1,20 +1,11 @@
 import gradio as gr
 from gradio_pdf import PDF
 
-def create_header(title="Applicator", subtitle="AI-powered application helper", 
-                 github_username="subhashbs36", repo_name="Cover_letter_generator", author_name="Subhash"):
+def create_header(title="ApplicatorAI", subtitle="AI-Powered Job Application Assistant", 
+                 github_username="subhashbs36", repo_name="Applicator", author_name="Subhash",
+                 version="1.0.0"):
     """
     Create a customizable header for the application.
-    
-    Args:
-        title (str): The title of the application
-        subtitle (str): The subtitle/description of the application
-        github_username (str): GitHub username for links
-        repo_name (str): Repository name for GitHub links
-        author_name (str): Author name to display in the footer
-    
-    Returns:
-        gradio.Markdown: A simple header component using Markdown styled as a navbar
     """
     # Use provided values or defaults
     github_username = github_username or "subhashbs36"
@@ -22,25 +13,47 @@ def create_header(title="Applicator", subtitle="AI-powered application helper",
     
     # Create a simple markdown header with inline styling to appear as a navbar
     markdown_content = f"""
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 0 8px 0; margin-top: -10px;">
-        <span style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 2.5em; font-weight: bold;">{title}</span>
-            <span style="font-weight: normal; font-size: 1.0em; color: #666;">•</span>
-            <span style="font-weight: normal; font-size: 1.0em;">{subtitle}</span>
-        </span>
-        <span style="display: flex; align-items: center; gap: 12px;">
-            <a href="https://github.com/{github_username}/{repo_name}" target="_blank" style="text-decoration: none;">
-                <img src="https://img.shields.io/github/stars/{github_username}/{repo_name}?style=social" alt="GitHub stars">
-            </a>
-            <a href="https://www.buymeacoffee.com/subhashbs" target="_blank" style="text-decoration: none;">
-                <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange" alt="Buy Me A Coffee">
-            </a>
-            <span style="font-size: 0.9em;">Made with ❤️ by <a href="https://github.com/{github_username}" target="_blank" style="text-decoration: underline;">{author_name}</a></span>
-        </span>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 0 8px 0; margin-top: -10px;">
+            <span style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 2.5em; font-weight: bold;">{title}</span>
+                <span style="font-weight: normal; font-size: 1.0em; color: #666;">•</span>
+                <span style="font-weight: normal; font-size: 1.0em;">{subtitle}</span>
+                <span style="font-weight: normal; font-size: 0.9em; color: #666;">v{version}</span>
+            </span>
+            <span style="display: flex; align-items: center; gap: 12px;">
+                <a href="https://github.com/{github_username}/{repo_name}" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.shields.io/github/stars/{github_username}/{repo_name}?style=social" alt="GitHub stars">
+                </a>
+                <a href="https://www.buymeacoffee.com/subhashbs" target="_blank" style="text-decoration: none;">
+                    <img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange" alt="Buy Me A Coffee">
+                </a>
+                <span style="font-size: 0.9em;">Made with ❤️ by <a href="https://github.com/{github_username}" target="_blank" style="text-decoration: underline;">{author_name}</a></span>
+            </span>
+        </div>
+        <div id="version-check" style="display: none; background-color: #fff3cd; color: #856404; padding: 8px; border-radius: 4px; text-align: center;">
+            A new version is available! <a href="https://github.com/{github_username}/{repo_name}/releases" target="_blank">Update now</a>
+        </div>
+        <script>
+            async function checkVersion() {{
+                try {{
+                    const response = await fetch('https://api.github.com/repos/{github_username}/{repo_name}/releases/latest');
+                    const data = await response.json();
+                    const latestVersion = data.tag_name.replace('v', '');
+                    const currentVersion = '{version}';
+                    
+                    if (latestVersion > currentVersion) {{
+                        document.getElementById('version-check').style.display = 'block';
+                    }}
+                }} catch (error) {{
+                    console.error('Error checking version:', error);
+                }}
+            }}
+            checkVersion();
+        </script>
     </div>
     """
     
-    # Use gr.HTML instead of gr.Markdown to properly render the inline styling
     return gr.HTML(markdown_content)
 
 def create_resume_section(resume_processor):
@@ -93,7 +106,7 @@ def create_job_details_section():
             )
 
         with gr.Row(equal_height=True):
-            autofill_btn = gr.Button("Auto-fill Job Details", variant="secondary", scale=1)
+            autofill_btn = gr.Button("Get Job Details", variant="secondary", scale=1)
             generate_btn = gr.Button("Generate Cover Letter", variant="primary", scale=1)
             reset_btn = gr.Button("Reset Form", variant="secondary", scale=1)
 

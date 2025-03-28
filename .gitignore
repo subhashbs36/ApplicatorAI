@@ -11,6 +11,9 @@ __pycache__/
 src/data/cache
 src/data/responses/
 src/data/user_resume/
+tools/
+ui/
+old Version/
 
 # Distribution / packaging
 .Python

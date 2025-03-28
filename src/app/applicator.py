@@ -3,6 +3,8 @@ import gradio as gr
 import re
 import time
 from pathlib import Path
+from src.config import *
+from src.config import VERSION
 from ..utils.generators.cover_letter_generator import CoverLetterGenerator
 from ..utils.generators.job_application_qna import JobApplicationQnA
 from ..utils.generators.ai_mail_generator import AiMailGenerator  # Add this import
@@ -148,12 +150,14 @@ class Applicator:
             
             progress(0.4, desc="Processing job description...")
             final_job_description = self.web_crawler.clean_job_description(crawled_content)
-            
-            # Check if crawled content is too short
-            if len(final_job_description.split()) < 50:  # Arbitrary threshold of 50 words
-                gr.Warning("⚠️ Crawled job description seems incomplete or too short. Please consider manually entering the job description for better results.")
+
+            # Check both length and presence of key job posting sections
+            if (len(final_job_description.lower().split())) < 50:
+                gr.Warning("⚠️ Failed to crawl job posting. Please verify the URL is correct and accessible.")
+                gr.Warning("⚠️ To proceed, please manually copy and paste the job description from the original posting.")
+                return "Error: Not enough content found in job description. Please verify the URL or paste the description manually."
         
-        if not final_job_description or final_job_description.strip() == "":
+        elif final_job_description or final_job_description.strip() == "":
             gr.Warning("⚠️ No job description provided")
             return "Please provide a job description or a valid job posting URL."
         
@@ -294,7 +298,7 @@ class Applicator:
         
         with gr.Blocks(title="Professional Job Application Assistant", theme=custom_theme) as demo:
             # Create a stylish header with custom CSS
-            create_header(github_username="subhashbs36", author_name="Subhash")
+            create_header(version=VERSION)
             
             with gr.Row():
                 with gr.Column(scale=3):
@@ -748,7 +752,7 @@ class Applicator:
         progress(1.0, desc="Done!")
         return details['company'], details['position']
 
-    def generate_ai_mail(self, description, context_source, resume_file, resume_dropdown, job_description, company_name, position_name):
+    def generate_ai_mail(self, description, context_source, resume_file, resume_dropdown, company_name, position_name):
         """Generate an AI email based on the provided description and context"""
         if not description:
             return "Please provide a description of what you want to communicate."
@@ -762,13 +766,29 @@ class Applicator:
             elif resume_dropdown:
                 resume_content = self.resume_processor.extract_text(resume_dropdown)
 
-            if not resume_content:
+            if not resume_content and context_source == "Resume":
                 return "Please provide a resume to use as context."
+            elif not resume_content and context_source == "Both":
+                # If "Both" is selected but resume is missing, notify user but continue with job description
+                gr.Warning("⚠️ Resume not provided. Using only job description for context.")
+                context_source = "Job Description"
 
         # Check job description if needed
         if context_source in ["Job Description", "Both"]:
-            if not job_description:
+            job_description = self.temp_job_description
+            if not job_description and context_source == "Job Description":
+                gr.Warning("⚠️ Job description not provided. Please generate a cover letter first.")
                 return "Please provide a job description to use as context."
+            elif not job_description and context_source == "Both":
+                # If "Both" is selected but job description is missing, use only resume
+                gr.Warning("⚠️ Job description not provided. Using only resume for context.")
+                context_source = "Resume"
+
+        # Validate company and position if provided
+        if company_name and not company_name.strip():
+            company_name = None
+        if position_name and not position_name.strip():
+            position_name = None
 
         # Prepare context based on selection, using only verified user information
         context = ""
@@ -778,7 +798,7 @@ class Applicator:
             # Only use verified information from the user's resume
             context = f"Using only the following verified information from your resume:\n{resume_content}"
         elif context_source == "Job Description":
-            context = job_description
+            context = f"Job Description:\n{job_description}"
         else:  # Both
             # Combine resume and job description while emphasizing use of verified information
             context = f"Using only the following verified information from your resume:\n{resume_content}\n\nJob Description:\n{job_description}"
