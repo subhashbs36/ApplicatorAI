@@ -9,7 +9,7 @@
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
-\usepackage{ragged2e}
+\usepackage{ragged2e} % Add this line for justification
 
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
@@ -25,6 +25,7 @@
 \addtolength{\textheight}{1.5in}
 
 \urlstyle{rm}
+
 \raggedbottom
 \setlength{\tabcolsep}{0in}
 
@@ -41,6 +42,12 @@
   }
 }
 
+\newcommand{\resumeItemWithoutTitle}[1]{
+  \item\small{
+    {\vspace{-2pt}}
+  }
+}
+
 \newcommand{\resumeSubheading}[4]{
   \vspace{1.5pt}\item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
@@ -48,6 +55,8 @@
       \textit{\small #4} & \textit{\small #3} \\
     \end{tabular*}\vspace{-4pt}
 }
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-3pt}}
 
 \renewcommand{\labelitemii}{$\circ$}
 
@@ -63,13 +72,13 @@
 \justify
 %----------HEADING-----------------
 \begin{center}
-  \textbf{\Large YOUR NAME} \\
+  \textbf{\Large JOHN DOE} \\
   \vspace{2pt}
   \small 
-  \href{mailto:your.email@example.com}{your.email@example.com} $|$ +1 (XXX) XXX-XXXX $|$
-  \href{https://yourwebsite.com}{yourwebsite.com} $|$
-  \href{https://github.com/yourgithub}{github.com/yourgithub} $|$
-  \href{https://linkedin.com/in/yourlinkedin}{linkedin.com/in/yourlinkedin}
+  \href{mailto:johndoe@example.com}{johndoe@example.com} $|$ +1 (123) 456-7890 $|$
+  \href{https://johndoe.com}{johndoe.com} $|$
+  \href{https://github.com/johndoe}{github.com/johndoe} $|$
+  \href{https://linkedin.com/in/johndoe}{linkedin.com/in/johndoe}
 \end{center}
 
 %-----------EDUCATION-----------------
@@ -77,55 +86,105 @@
 \section{Education}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {Your University}{Location}
-      {Start Date - End Date}{Degree, Major; \textbf{GPA: X.X}}
-  \resumeSubHeadingListEnd
+      {University of Example, Some City}{Some City, USA}
+      {Sept 2023 - Dec 2025}{Master of Science in Computer Science; \textbf{GPA: 4.0}}
+      \vspace{-2pt}
+    \resumeSubheading
+      {Example University}{Example City, Country}
+      {Sept 2019 - Jul 2023}{Bachelor of Engineering in Computer Science; \textbf{CGPA: 8.5}}
+\resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------------
 \vspace{-6pt}
 \section{Experience}
 \resumeSubHeadingListStart
     \resumeSubheading
-      {Job Title}{Start Date - End Date}
-      {Location}{Company Name}
+      {Software Developer}{Jan 2024 - Jun 2024}
+      {Example City, Country}{Tech Solutions Inc. $|$ Full-time}
       \resumeItemListStart
-        \resumeItem{Project/Task 1: }
-          {Description of the work done, key technologies used, and impact.}
-        \resumeItem{Project/Task 2: }
-          {Description of another project or responsibility.}
+        \resumeItem{AI-Based System Development: }
+          {Developed an AI-powered system that improved predictive analytics, increasing performance by 70\% using machine learning algorithms.}
+        \resumeItem{Cloud Infrastructure: }
+          {Led a team in optimizing cloud infrastructure, reducing costs by 30\% and enhancing deployment times.}
+        \resumeItem{Cross-Functional Collaboration: }
+          {Collaborated with the front-end team to integrate machine learning models into web applications, improving user experience.}
       \resumeItemListEnd
+
+    \resumeSubheading
+      {DevOps Engineer}{Jun 2023 - Dec 2023}
+      {Some City, Country}{CloudTech Solutions $|$ Full-time}
+      \resumeItemListStart
+        \resumeItem{}
+          {Led the migration of legacy systems to cloud platforms, enhancing operational efficiency by 40\% using Kubernetes and Docker.}
+        \resumeItem{}
+          {Automated deployment pipelines, increasing development velocity by 60\%.}
+        \resumeItem{}
+          {Integrated CI/CD pipelines and improved system monitoring, reducing downtime by 25\%.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Research Assistant}{Jan 2023 - Dec 2023}
+      {Example City, Country}{Institute of Technology $|$ Full-time}
+      \resumeItemListStart
+        \resumeItem{}
+          {Assisted in developing advanced algorithms for data processing, improving accuracy in simulations by 50\%.}
+        \resumeItem{}
+          {Contributed to writing papers and presenting findings at international conferences, leading to a paper publication in a peer-reviewed journal.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+    {Software Engineer Intern}{Sep 2022 - Jan 2023}
+    {Example City, Country}{Tech Innovations Ltd. $|$ Internship}
+        \resumeItemListStart
+          \resumeItem{}
+            {Worked on a project to optimize the scheduling algorithms for better resource allocation in cloud-based systems.}
+          \resumeItem{}
+            {Developed an API for data analytics that processed real-time data, improving system performance by 20\%.}
+        \resumeItemListEnd
+
 \resumeSubHeadingListEnd
 
-%-----------PUBLICATIONS (if any)-----------------
+%-----------PUBLICATIONS-----------------
   \vspace{0pt}
   \section{Publications}
   \resumeSubHeadingListStart
-  \resumeSubItem{Publication Title: }{Journal/Conference, Year. \textit{\href{https://publicationlink.com}{Link}}}
+  \resumeSubItem{AI for Healthcare: A Review of Recent Advances}{Springer Nature, 2024. \textit{\href{https://link.springer.com/chapter/10.1007/978-981-99-8684-2_14}{Link}}}
+  \vspace{2pt}
+  \resumeSubItem{Efficient Cloud Infrastructure for Large-Scale Applications}{IEEE CloudTech, 2024. \textit{\href{https://ieeexplore.ieee.org/abstract/document/10467949}{Link}}}
+  \vspace{2pt}
+  \resumeSubItem{Blockchain for Data Security: A Case Study}{Tech Journal, 2023. \textit{\href{https://www.researchgate.net/publication/369922789_NAYAN_NIRIKSHAN_-_Violence_Detection_Using_Surveillance_Camera}{Link}}}
   \resumeSubHeadingListEnd
 
 %-----------PROJECTS-----------------
 \vspace{0pt}
 \section{Projects}
 \resumeSubHeadingListStart
-\resumeSubItem{Project Name: }{Brief description of the project, key technologies used. \textit{\href{https://projectlink.com}{Link}}}
+\resumeSubItem{AI-Powered Image Classifier: }{Built a deep learning-based image classifier using TensorFlow, achieving 90\% accuracy in image recognition tasks. Integrated real-time feedback for classification improvement.}
+\vspace{2pt}
+\resumeSubItem{Virtual Assistant: }{Developed a chatbot-based virtual assistant using NLP techniques, providing automated customer support and resolving queries with 85\% accuracy. \textit{\href{https://github.com/johndoe/Virtual-Assistant}{Link}}}
+\vspace{2pt}
+\resumeSubItem{Weather Prediction System: }{Developed a weather prediction model using machine learning algorithms, achieving 80\% accuracy in predicting weather conditions for the next 7 days. \textit{\href{https://github.com/johndoe/Weather-Prediction}{Link}}}
 \resumeSubHeadingListEnd
 
 %-----------SKILLS-----------------
 \vspace{0pt}
 \section{Skills}
 \resumeSubHeadingListStart
-    \resumeSubItem{Languages \& Frameworks: }{Python, C++, JavaScript, etc.}
-    \resumeSubItem{Web, ML \& API Development: }{HTML, CSS, REST APIs, TensorFlow, PyTorch, etc.}
-    \resumeSubItem{Cloud \& DevOps: }{AWS, Docker, Kubernetes, Jenkins, etc.}
-    \resumeSubItem{Databases: }{MySQL, PostgreSQL, MongoDB, etc.}
+    \small % Apply smaller font size globally for this section
+    \resumeSubItem{Languages \& Frameworks: }{\small Python, Java, C++, JavaScript, React.js, Node.js, Django, Flask}
+    \resumeSubItem{Cloud \& DevOps: }{\small AWS, GCP, Docker, Kubernetes, Jenkins, Terraform}
+    \resumeSubItem{Machine Learning: }{\small TensorFlow, PyTorch, Keras, Scikit-learn, Pandas}
+    \resumeSubItem{Databases: }{\small MySQL, PostgreSQL, MongoDB, Redis, Firebase}
+    \resumeSubItem{Other: }{\small Linux, Git, HTML/CSS, Docker, CI/CD, Agile, JIRA, Jenkins}
 \resumeSubHeadingListEnd
 
 %-----------HONORS AND AWARDS-----------------
 \vspace{0pt}
 \section{Honors and Awards}
 \resumeSubHeadingListStart
-    \resumeSubItem{}{Award Name, Year.}
-    \resumeSubItem{}{Another Award, Year.}
+    \resumeSubItem{}{1st Place in AI Hackathon 2025.}
+    \resumeSubItem{}{Best Undergraduate Project Award, Example University, 2023.}
+    \resumeSubItem{}{1st Place in National Science Fair, 2021.}
 \resumeSubHeadingListEnd
 
 \end{document}
