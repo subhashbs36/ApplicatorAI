@@ -393,3 +393,44 @@ def create_features_section(resume_builder):
         mail_description, context_source, generate_ai_mail_btn,
         ai_mail_output, download_ai_mail_btn, download_ai_mail_output
     )
+
+
+def create_chat_interface():
+    """Create a chat interface for user interaction"""
+    with gr.Group() as chat_section:
+        gr.Markdown("## Chat Interface")
+        
+        # Chat history display
+        with gr.Column(scale=1):
+            chat_history = gr.Chatbot(
+                type='messages',
+                label="Chat History",
+                show_copy_button=True,
+                height=500  # Set a fixed height for vertical scaling
+            )
+            
+            # Message input
+            with gr.Row(equal_height=True):
+                msg_input = gr.Textbox(
+                    placeholder="Ask me anything about your job application...",
+                    lines=2,
+                    show_label=False,
+                    scale=8,
+                    container=False,
+                    autofocus=True
+                )
+                send_btn = gr.Button(
+                    "Send",
+                    variant="primary",
+                    scale=1,
+                    min_width=100,
+                    size="lg"
+                )
+            
+            # Clear chat button
+            clear_btn = gr.Button("Clear Chat", variant="secondary")
+            
+            # System status/feedback
+            status_msg = gr.Markdown("")
+        
+    return chat_section, chat_history, msg_input, send_btn, clear_btn, status_msg

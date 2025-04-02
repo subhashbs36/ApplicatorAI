@@ -71,6 +71,13 @@ def setup_event_handlers(app, ui_elements):
     download_resume_btn = ui_elements['download_resume_btn']
     download_resume_output = ui_elements['download_resume_output']
 
+    # Extract chat interface elements
+    chat_history = ui_elements['chat_history']
+    chat_input = ui_elements['msg_input']
+    chat_submit_btn = ui_elements['send_btn']
+    chat_clear_btn = ui_elements['clear_btn']
+    chat_status = ui_elements['status_msg']
+    
     # Connect the autofill button
     autofill_btn.click(
         fn=app._autofill_job_details,
@@ -263,3 +270,16 @@ def setup_event_handlers(app, ui_elements):
         inputs=[company_name, position_name, ai_mail_output],
         outputs=download_ai_mail_output
     )
+    # Add Chat Interface event handlers
+    chat_submit_btn.click(
+            fn=app.submit_chat_message,
+            inputs=[chat_input, chat_history],
+            outputs=[chat_input, chat_history]
+        )
+    
+    chat_clear_btn.click(
+        fn=app.clear_chat_history,
+        inputs=[],
+        outputs=[chat_history]
+    )
+    

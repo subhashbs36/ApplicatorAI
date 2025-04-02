@@ -15,7 +15,8 @@ from ..utils.generators.referral_dm_generator import ReferralDMGenerator
 from ..utils.generators.resume_builder import ResumeBuilder
 from ..utils.generators.resume_processor import ResumeProcessor
 from ..utils.web_crawler import WebCrawler
-from ..ui.components import create_header, create_resume_section, create_job_details_section, create_features_section
+from ..utils.generators.chatbot_generator import ChatbotGenerator  # Add this import
+from ..ui.components import create_header, create_resume_section, create_job_details_section, create_features_section, create_chat_interface
 from ..ui.event_handlers import setup_event_handlers
 from src.utils.job_extractor import JobDetailsExtractor
 
@@ -55,6 +56,7 @@ class Applicator:
         self.referral_dm_generator = ReferralDMGenerator()  # Add this line
         self.resume_builder = ResumeBuilder()  # Add the resume builder
         self.job_extractor = JobDetailsExtractor()
+        self.chatbot_generator = ChatbotGenerator()  # Add this line
         self.temp_cover_letter = None
         self.temp_resume_content = None
         self.temp_job_description = None
@@ -301,12 +303,12 @@ class Applicator:
             create_header(version=VERSION)
             
             with gr.Row():
-                with gr.Column(scale=3):
+                with gr.Column(scale=2):
                     resume_section, resume_dropdown, refresh_btn, resume_file = create_resume_section(self.resume_processor)                    
                     
                     section, company_name, position_name, job_url, autofill_btn, job_description, generate_btn, reset_btn = create_job_details_section()
 
-                with gr.Column(scale=7):
+                with gr.Column(scale=5):
                     (tabs, cover_letter_output, download_btn, download_output,
                      resume_template, refresh_templates_btn, template_file, resume_sections,
                      user_suggestion, build_resume_btn, resume_latex_preview,
@@ -325,6 +327,10 @@ class Applicator:
                      download_referral_btn, download_referral_output, 
                      mail_description, context_source, generate_ai_mail_btn,
                      ai_mail_output, download_ai_mail_btn, download_ai_mail_output ) = create_features_section(self.resume_builder)
+
+                with gr.Column(scale=3):
+                    chat_section, chat_history, msg_input, send_btn, clear_btn, status_msg = create_chat_interface()
+                    
 
                 # Create UI elements dictionary
                 ui_elements = {
@@ -388,7 +394,13 @@ class Applicator:
                     'generate_ai_mail_btn': generate_ai_mail_btn,
                     'ai_mail_output': ai_mail_output,
                     'download_ai_mail_btn': download_ai_mail_btn,
-                    'download_ai_mail_output': download_ai_mail_output
+                    'download_ai_mail_output': download_ai_mail_output,
+                    'chat_section': chat_section,
+                    'chat_history': chat_history,
+                    'msg_input': msg_input,
+                    'send_btn': send_btn,
+                    'clear_btn': clear_btn,
+                    'status_msg': status_msg
                 }
 
                 # Set up event handlers
@@ -839,3 +851,48 @@ class Applicator:
         except Exception as e:
             print(f"Error saving AI email: {e}")
             return None
+
+    def submit_chat_message(self, message, chat_history):
+        """Handle chat message submission and generate response"""
+        if not message or message.strip() == "":
+            return "Please enter a message.", chat_history
+        
+        # Generate response using the chatbot generator
+        response = self.chatbot_generator.generate_response(
+            user_message=message,
+            job_description=self.temp_job_description,
+            resume_content=self.temp_resume_content,
+            company_name=self.company_name,
+            position_name=self.position_name
+        )
+        
+        # Update chat history
+        if chat_history is None:
+            chat_history = []
+        
+        # Add the user's message to history
+        chat_history.append({"role": "user", "content": message})
+        
+        # Add the main content as a separate message
+        chat_history.append({
+            "role": "assistant",
+            "content": response["main_content"],
+            "output": "main"
+        })
+        
+        # Add additional notes as a separate message if they exist
+        if response["additional_notes"]:
+            chat_history.append({
+                "role": "assistant",
+                "content": response["additional_notes"],
+                "output": "notes"
+            })
+        
+        return "", chat_history  # Return empty string for message input to clear it
+
+    def clear_chat_history(self):
+        """Clear the chat history"""
+        # Clear the chat history in the chatbot generator
+        self.chatbot_generator.clear_history()
+        # Return empty chat history list
+        return []
