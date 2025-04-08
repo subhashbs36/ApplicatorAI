@@ -34,15 +34,16 @@ class ChatbotGenerator:
         try:
             with open(file_path, "w", encoding="utf-8") as f:
                 for message in chat_history:
-                    # Each message is a tuple of (role, content)
-                    role, content = message
+                    # Each message is a dictionary with role and content
+                    role = message.get("role", "Unknown")
+                    content = message.get("content", "")
                     f.write(f"{role}: {content}\n\n")
             return str(file_path)
         except Exception as e:
             print(f"Error creating file: {e}")
             return f"Error saving chat history: {str(e)}"
     
-    def generate_response(self, user_message, job_description, resume_content="", company_name="", position_name=""):
+    def generate_response(self, user_message, job_description=None, resume_content=None, company_name=None, position_name=None):
         """Generate a response to the user's message"""
         if not user_message:
             return "Please provide a message to respond to."
@@ -63,8 +64,8 @@ class ChatbotGenerator:
         if self.chat_history:
             history_context = "\nPrevious conversation:\n"
             # Include up to the last 5 exchanges for context
-            for i, (role, content) in enumerate(self.chat_history[-10:]):
-                history_context += f"{role}: {content}\n"
+            for message in self.chat_history[-10:]:
+                history_context += f"{message['role']}: {message['content']}\n"
         
         # Generate the response using Gemini
         model = genai.GenerativeModel('gemini-2.0-flash')
@@ -104,8 +105,8 @@ class ChatbotGenerator:
             additional_notes = parts[1].strip() if len(parts) > 1 else ""
             
             # Update chat history with the main content only
-            self.chat_history.append(("User", user_message))
-            self.chat_history.append(("Assistant", main_content))
+            self.chat_history.append({"role": "user", "content": user_message})
+            self.chat_history.append({"role": "assistant", "content": main_content})
             
             # Return both parts
             return {
@@ -114,8 +115,8 @@ class ChatbotGenerator:
             }
         except Exception as e:
             error_message = f"Error generating response: {str(e)}"
-            self.chat_history.append(("User", user_message))
-            self.chat_history.append(("Assistant", error_message))
+            self.chat_history.append({"role": "user", "content": user_message})
+            self.chat_history.append({"role": "assistant", "content": error_message})
             return {
                 "main_content": error_message,
                 "additional_notes": ""

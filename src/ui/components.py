@@ -403,7 +403,6 @@ def create_chat_interface():
         # Chat history display
         with gr.Column(scale=1):
             chat_history = gr.Chatbot(
-                type='messages',
                 label="Chat History",
                 show_copy_button=True,
                 height=500  # Set a fixed height for vertical scaling

@@ -272,10 +272,10 @@ def setup_event_handlers(app, ui_elements):
     )
     # Add Chat Interface event handlers
     chat_submit_btn.click(
-            fn=app.submit_chat_message,
-            inputs=[chat_input, chat_history],
-            outputs=[chat_input, chat_history]
-        )
+        fn=app.submit_chat_message,
+        inputs=[chat_input, chat_history],
+        outputs=[chat_input, chat_history]
+    )
     
     chat_clear_btn.click(
         fn=app.clear_chat_history,

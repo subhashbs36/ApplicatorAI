@@ -232,33 +232,13 @@ class Applicator:
             return file_path
         return None
 
-    def download_batch_file(self, evt=None, data=None):
-        """Save and download batch Q&A responses"""
-        return self.download_qna_file()
-
-    def download_cold_mail(self, evt=None, data=None):
-        """Save and download the cold mail as a text file"""
-        cold_mail = self.cold_mail_generator.temp_cold_mail
-        if not cold_mail:
-            return None
-        
-        return self.cold_mail_generator.save_cold_mail(cold_mail, self.company_name, self.position_name)
-
-    def download_linkedin_dm(self, evt=None, data=None):
-        """Save and download the LinkedIn DM as a text file"""
-        linkedin_dm = self.linkedin_dm_generator.temp_linkedin_dm
-        if not linkedin_dm:
-            return None
-        
-        return self.linkedin_dm_generator.save_linkedin_dm(linkedin_dm, self.company_name, self.position_name)
-
-    def download_referral_dm(self, evt=None, data=None):
+    def download_referral_dm_file(self, company_name, position_name):
         """Save and download the referral DM as a text file"""
         referral_dm = self.referral_dm_generator.temp_referral_dm
         if not referral_dm:
             return None
         
-        return self.referral_dm_generator.save_referral_dm(referral_dm, self.company_name, self.position_name)
+        return self.referral_dm_generator.save_referral_dm(referral_dm, company_name, position_name)
 
     def download_file(self, company_name, position_name, current_cover_letter):
         """Function to return file for downloading (only triggered when Download PDF button is pressed)"""
@@ -282,7 +262,7 @@ class Applicator:
     def refresh_resume_templates(self):
         """Refresh the list of available resume templates"""
         return gr.update(
-            choices=self.resume_builder.list_resume_templates(),
+            choices=self.resume_builder.list_templates(),
             value=None
         )
 
@@ -873,20 +853,28 @@ class Applicator:
         # Add the user's message to history
         chat_history.append({"role": "user", "content": message})
         
-        # Add the main content as a separate message
-        chat_history.append({
-            "role": "assistant",
-            "content": response["main_content"],
-            "output": "main"
-        })
-        
-        # Add additional notes as a separate message if they exist
-        if response["additional_notes"]:
+        # Handle both string and dictionary responses
+        if isinstance(response, str):
             chat_history.append({
                 "role": "assistant",
-                "content": response["additional_notes"],
-                "output": "notes"
+                "content": response,
+                "output": "main"
             })
+        else:
+            # Add the main content as a separate message
+            chat_history.append({
+                "role": "assistant",
+                "content": response.get("main_content", "I apologize, but I couldn't generate a response. Please try again."),
+                "output": "main"
+            })
+            
+            # Add additional notes as a separate message if they exist
+            if response.get("additional_notes"):
+                chat_history.append({
+                    "role": "assistant",
+                    "content": response.get("additional_notes"),
+                    "output": "notes"
+                })
         
         return "", chat_history  # Return empty string for message input to clear it
 

@@ -102,24 +102,47 @@ To enable LaTeX-based resume generation, install MikTeX:
    git clone https://github.com/subhashbs36/ApplicatorAI.git
    cd ApplicatorAI
    ```
-2. **Create a virtual environment**
+
+2. **Create a virtual environment with uv**
    ```bash
-   python3.12 -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   # Install uv if you haven't already
+   pip install uv
+
+   # Create a virtual environment with Python 3.12
+   uv venv ApplicatorAI --python 3.12
+   
+   # Activate the virtual environment
+   # On Windows:
+   .\ApplicatorAI\Scripts\activate
+   # On Linux/Mac:
+   source ApplicatorAI/bin/activate
    ```
+
 3. **Install dependencies**
    ```bash
-   pip install -r requirements.txt
+   # Install dependencies using uv (recommended)
+   uv pip install -e .
    ```
+   Then.
+   ```bash
+   # Install Crawl4Ai
+   uv pip install Crawl4AI==0.4.248
+   ```
+
 4. **Set up environment variables**
    - Create a `.env` file in the project root
-   - Add necessary API keys as described above
+   - Add your GEMINI API key:
+     ```
+     GEMINI_API_KEY=your_gemini_api_key
+     ```
+
 5. **Run the application**
    ```bash
    python app.py
    ```
+
 6. **Access the web interface**
-   Open `http://localhost:7860` in your browser.   
+   Open `http://localhost:7860` in your browser.
 
 ### 📌 Option 2: Install Using Docker
 
